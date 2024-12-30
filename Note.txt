@@ -1,0 +1,50 @@
+# client (React)
+# คำสั่งสร้างโปรเจ็กต์ใหม่
+MacOS
+—
+docker run --rm -it \
+  -v ${PWD}/client:/app \
+  node:18-alpine \
+  sh -c "cd /app && \
+         npm create vite@latest . -- --template react && \
+         npm install && \
+         npm install react@19.0.0 react-dom@19.0.0"
+
+Windows
+—
+docker run --rm -it -v %cd%/client:/app node:18-alpine sh -c "cd /app && npm create vite@latest . -- --template react && npm install && npm install react@19.0.0 react-dom@19.0.0"
+
+# server (NodeJS Express)
+# คำสั่งสร้างโปรเจ็กต์ใหม่
+MacOS
+—
+# สร้างโปรเจ็กต์ Express ด้วย Docker
+docker run --rm -it \
+  -v ${PWD}/server:/app \
+  node:18-alpine \
+  sh -c "cd /app && npm init -y && npm install express mongoose cors dotenv nodemon"
+
+Windows
+—
+# สร้างโปรเจ็กต์ Express ด้วย Docker
+docker run --rm -it -v %cd%/server:/app node:18-alpine sh -c "cd /app && npm init -y && npm install express mongoose cors dotenv nodemon"
+
+# คำสั่ง run compose file
+Dev mode
+—
+docker-compose up -d --build
+
+Production mode
+—
+docker compose -f docker-compose.prod.yml --env-file .env up -d --build
+
+# เรียกใช้งานที่
+Dev mode
+—
+client: http://localhost:8880
+server: http://localhost:5550
+
+Production mode
+—
+client: http://localhost:8880
+server: http://localhost:5550
